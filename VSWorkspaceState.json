@@ -1,0 +1,238 @@
+using System;ss
+
+public class opdracht1
+{
+    public static void Main()
+    {
+        double pi = CalculatePi();
+        Console.WriteLine($"Berekende waarde van PI: {pi:F4}");
+    }
+
+    public static double CalculatePi()
+    {
+        double pi = 0.0;
+        double sign = 1.0;
+        double denominator = 1.0;
+
+        for (int n = 1; n <= 100001; n += 2)
+        {
+            pi += sign * (1.0 / denominator);
+            sign *= -1.0;
+            denominator += 2.0;
+        }
+
+        return pi * 4;
+    }
+}
+/*using System;
+
+class opdracht2
+{
+    static string[] Words = { "LINGO", "ZWERK", "VEGER", "GROEN", "GOEDE" };
+
+    static void Main()
+    {
+        foreach (string word in Words)
+        {
+            PlayLingo(word);
+        }
+
+        Console.WriteLine("Alle woorden zijn geraden! Het spel is afgelopen.");
+        Console.ReadLine();
+    }
+
+    static void PlayLingo(string targetWord)
+    {
+        Console.WriteLine("Raad een woord van 5 letters:");
+
+        bool wordGuessed = false;
+        int attempts = 0;
+
+        while (!wordGuessed)
+        {
+            attempts++;
+            string guess = Console.ReadLine().ToUpper();
+
+            if (guess.Length != 5)
+            {
+                Console.WriteLine("Ongeldig woord. Voer een woord van 5 letters in.");
+                continue;
+            }
+
+            if (guess == targetWord)
+            {
+                Console.WriteLine("Goed geraden! Het woord is inderdaad \"" + targetWord + "\".");
+                wordGuessed = true;
+            }
+            else
+            {
+                Console.WriteLine("Fout geraden. Resultaat:");
+
+                for (int i = 0; i < 5; i++)
+                {
+                    if (guess[i] == targetWord[i])
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write(guess[i]);
+                    }
+                    else if (targetWord.Contains(guess[i]))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(guess[i]);
+                    }
+                    else
+                    {
+                        Console.Write(".");
+                    }
+
+                    Console.ResetColor();
+                }
+
+                Console.WriteLine();
+            }
+        }
+
+        Console.WriteLine("Aantal pogingen: " + attempts + "\n");
+    }
+}
+using System;
+
+class opdracht3
+{
+    static void Main()
+    {
+        Console.WriteLine("Voer een Nederlandse postcode in:");
+        string postcode = Console.ReadLine();
+
+        if (IsPostcodeValid(postcode))
+        {
+            Console.WriteLine("De postcode is geldig.");
+        }
+        else
+        {
+            Console.WriteLine("De postcode is ongeldig.");
+        }
+
+        Console.ReadLine();
+    }
+
+    static bool IsPostcodeValid(string postcode)
+    {
+        if (postcode.Length != 6)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (!char.IsDigit(postcode[i]))
+            {
+                return false;
+            }
+        }
+
+        for (int i = 4; i < 6; i++)
+        {
+            if (!char.IsLetter(postcode[i]))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+using System;
+
+class opdracht4
+{
+    static void Main()
+    {
+        int count = 0;
+        int number = 2;
+
+        while (count < 20)
+        {
+            if (IsPriemgetal(number))
+            {
+                Console.Write(number + " ");
+                count++;
+            }
+
+            number++;
+        }
+
+        Console.ReadLine();
+    }
+
+    static bool IsPriemgetal(int number)
+    {
+        if (number < 2)
+        {
+            return false;
+        }
+
+        for (int i = 2; i <= Math.Sqrt(number); i++)
+        {
+            if (number % i == 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+using System;
+
+class VarkenslatijnTranslator
+{
+    static void Main()
+    {
+        Console.WriteLine("Voer een zin in:");
+        string inputSentence = Console.ReadLine();
+
+        string[] words = inputSentence.Split(' ');
+
+        for (int i = 0; i < words.Length; i++)
+        {
+            string word = words[i].ToLower();
+
+            if ("aeiou".Contains(word[0]))
+            {
+                words[i] = word + "ibus";
+            }
+            else if ("aiu".Contains(word[word.Length - 1]))
+            {
+                words[i] = word + "nt";
+            }
+            else
+            {
+                int firstVowelIndex = FindFirstVowelIndex(word);
+                string translatedWord = word.Substring(firstVowelIndex) + word.Substring(0, firstVowelIndex) + "itum";
+                words[i] = translatedWord;
+            }
+
+            words[i] = words[i].Replace("j", "i").Replace("y", "").Replace("z", "");
+        }
+
+        string translatedSentence = string.Join(" ", words);
+        Console.WriteLine(translatedSentence);
+
+        Console.ReadLine();
+    }
+
+    static int FindFirstVowelIndex(string word)
+    {
+        string vowels = "aeiou";
+
+        for (int i = 0; i < word.Length; i++)
+        {
+            if (vowels.Contains(word[i]))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
